@@ -5,32 +5,43 @@
 
 <section id="about">
   <h2>Про себе</h2>
-  <img src="{{ url_for('static', filename='images/photo_2026-10-07_22-04-29.jpg') }}" alt="фото" class="photo">
-    <p>Назарій</p>
-    <p>Cтудент 3 курсу ІПЗ, люблю котів, програмування</p>
+  <img src="{{ url_for('static', filename='images/photo_2026-10-07_22-04-29.jpg') }}" alt="Фото" class="photo">
+  <h3>Яневич Назарій</h3>
+  <p>
+    <strong>Мета:</strong> активно розвиватися професійно
+    та вносити вклад у розвиток команди.
+  </p>
 </section>
 
 <section id="education">
   <h2>Освіта</h2>
-  <p>Карпатський національний університет імені Василя Стефаника, спеціальність 121 (F2), рік вступу - 2024</p>
+  <ul>
+    <li><strong>Заклад:</strong> Івано-Франківський Карпатський університет імені Василя Стефаника</li>
+    <li><strong>Спеціальність:</strong> 121, Інженерія програмного забезпечення</li>
+    <li><strong>Додаткові курси:</strong> CISCO, Prometheus</li>
+  </ul>
 </section>
 
 <section id="skills">
   <h2>Навички</h2>
   <ul>
-    <li>Володіння англійською мовою</li>
+    <li>Іноземні мови: англійська, китайська, американська</li>
     <li>Володіння програмами та інструментами</li>
-      <li>Критичне мислення та пошук виходів із конфліктних ситуацій.</li>
+    <li>Критичне мислення та пошук виходів із конфліктних ситуацій</li>
   </ul>
 </section>
 
 <section id="tech">
   <h2>Технології</h2>
-  <p>Python, Flask, HTML, CSS, Git</p>
+  <p>C++, Python, Flask, HTML, CSS, Git</p>
 </section>
 
 <section id="projects">
-  <h2>Проєкти</h2>
-  <p>Програмування інтернет: https://nazaryanevych.github.io/</p>
+  <h2>Досвід роботи / Проєкти</h2>
+  <p>Особисті проєкти.</p>
+  <p>
+    Програмування інтернет:
+    <a href="https://nazaryanevych.github.io/" target="_blank" rel="noopener">nazaryanevych.github.io</a>
+  </p>
 </section>
 {% endblock %}
