@@ -2,4 +2,31 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
+
+<section id="contact-info">
+  <h2>Мої контакти</h2>
+  <address>
+    Email: <a href="mailto:you@example.com">nazar@gmail.com</a><br>
+    Телефон: +380676776767<br>
+  </address>
+</section>
+
+<section id="contact-form">
+  <h2>Звязатись зі мною</h2>
+  <form method="post" action="{{ url_for('contacts') }}">
+    <div class="mb-3">
+      <label for="name" class="form-label">Ім'я</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Пошта</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Повідомлення</label>
+      <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-accent">Надіслати</button>
+  </form>
+</section>
 {% endblock %}
