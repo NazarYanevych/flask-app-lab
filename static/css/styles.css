@@ -1,15 +1,27 @@
 :root {
-    --accent: #20c997;
-    --accent-light: #d1e7dd;
+    --accent: #0f9b84;
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: "Segoe UI", Arial, sans-serif; background-color: #f8f9fa; }
-section { scroll-margin-top: 70px; }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+section {
+    margin-bottom: 2rem;
+    scroll-margin-top: 70px;
+}
+
 h1, h2 { color: var(--accent); }
+
+.photo {
+    width: 150px;
+    border-radius: 50%;
+}
 
 .site-nav,
 .site-footer { background-color: var(--accent); }
 
 .site-nav .nav-link { color: #fff; }
-.site-nav .nav-link:hover { color: var(--accent-light); }
