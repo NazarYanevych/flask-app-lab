@@ -3,14 +3,52 @@
 
 {% block content %}
 <h1>Профіль користувача</h1>
-
 <h2>Вітаємо, {{ username }}!</h2>
 
-<p>Ви успішно увійшли в систему.</p>
-
 <form method="POST" action="{{ url_for('users.logout') }}">
-    <button type="submit" class="btn btn-danger">
-        Вийти
-    </button>
+    <button class="btn btn-danger">Вийти</button>
+</form>
+
+<hr>
+
+<h3>Додати Cookie</h3>
+
+<form method="POST" action="{{ url_for('users.add_cookie') }}">
+    <input name="key" placeholder="Ключ" required>
+    <input name="value" placeholder="Значення">
+    <input type="number" name="max_age" placeholder="Термін (сек)" min="1" value="3600" required>
+    <button class="btn btn-accent">Додати</button>
+</form>
+
+<hr>
+
+<h3>Поточні Cookies</h3>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Ключ</th>
+        <th>Значення</th>
+        <th>Дія</th>
+    </tr>
+    {% for key, value in cookies.items() %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('users.delete_cookie') }}">
+                <input type="hidden" name="key" value="{{ key }}">
+                <button class="btn btn-danger btn-sm">Видалити</button>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">Cookies відсутні</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form method="POST" action="{{ url_for('users.delete_all_cookies') }}">
+    <button class="btn btn-danger">Видалити всі Cookies</button>
 </form>
 {% endblock %}
