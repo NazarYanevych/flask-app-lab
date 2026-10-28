@@ -35,24 +35,23 @@ def login():
     return render_template("login.html", title="Вхід")
 
 
+
 @users.route("/profile")
 def profile():
     if "username" not in session:
-        flash("Спочатку увійдіть у систему", "danger")
+        flash("Спочатку увійдіть у систему!", "danger")
         return redirect(url_for("users.login"))
 
-    cookie_keys = session.get("cookie_keys", [])
-    cookies = {
-        key: request.cookies.get(key)
-        for key in cookie_keys
-        if key in request.cookies
-    }
+    cookies = {}
+    for key in session.get("cookie_keys", []):
+        if key in request.cookies:
+            cookies[key] = request.cookies[key]
 
     return render_template(
         "profile.html",
-        title="Профіль",
         username=session["username"],
-        cookies=cookies
+        cookies=cookies,
+        theme=request.cookies.get("theme", "light")
     )
 
 
@@ -134,5 +133,21 @@ def delete_all_cookies():
         response.delete_cookie(key)
 
     session["cookie_keys"] = []
+
+    return response
+
+
+
+@users.route("/set_theme/<theme>")
+def set_theme(theme):
+    if "username" not in session:
+        flash("Спочатку увійдіть у систему!", "danger")
+        return redirect(url_for("users.login"))
+
+    if theme not in ["light", "dark"]:
+        return redirect(url_for("users.profile"))
+
+    response = make_response(redirect(url_for("users.profile")))
+    response.set_cookie("theme", theme, max_age=60 * 60 * 24 * 30)
 
     return response

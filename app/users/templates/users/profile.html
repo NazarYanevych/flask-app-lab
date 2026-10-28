@@ -2,8 +2,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="p-3 rounded {% if theme == 'dark' %}bg-dark text-white{% else %}bg-light text-dark{% endif %}">
+
 <h1>Профіль користувача</h1>
 <h2>Вітаємо, {{ username }}!</h2>
+
+<h3>Кольорова тема</h3>
+<a href="{{ url_for('users.set_theme', theme='light') }}" class="btn btn-light">Світла</a>
+<a href="{{ url_for('users.set_theme', theme='dark') }}" class="btn btn-dark">Темна</a>
+
+<hr>
 
 <form method="POST" action="{{ url_for('users.logout') }}">
     <button class="btn btn-danger">Вийти</button>
@@ -24,7 +32,7 @@
 
 <h3>Поточні Cookies</h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered {% if theme == 'dark' %}table-dark{% endif %}">
     <tr>
         <th>Ключ</th>
         <th>Значення</th>
@@ -51,4 +59,6 @@
 <form method="POST" action="{{ url_for('users.delete_all_cookies') }}">
     <button class="btn btn-danger">Видалити всі Cookies</button>
 </form>
+
+</div>
 {% endblock %}
