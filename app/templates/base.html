@@ -10,9 +10,23 @@
 <body>
     {% include 'components/navbar.html' %}
 
-    <main class="container my-4">
-        {% block content %}{% endblock %}
-    </main>
+
+<main class="container my-4">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+</main>
+
 
     {% include 'components/footer.html' %}
 
