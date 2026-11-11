@@ -1,13 +1,23 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 <h1>{{ product.name }}</h1>
 
+{% if product.image %}
+    <img src="{{ url_for('products.static', filename=product.image) }}"
+         alt="{{ product.name }}" width="300">
+{% else %}
+    <p>Зображення відсутнє</p>
+{% endif %}
+
 <p>{{ product.content }}</p>
-<p><strong>Ціна: {{ product.price }} $</strong></p>
+<p>Категорія: {{ product.category }}</p>
+<p>Ціна: {{ product.price }} $</p>
+<p>Кількість: {{ product.quantity }}</p>
+<p>Дата створення: {{ product.created_at }}</p>
 
 <a href="{{ url_for('products.product_list') }}" class="btn btn-accent">
     Назад до товарів
 </a>
+
 {% endblock %}
