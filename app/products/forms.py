@@ -36,3 +36,6 @@ class ProductForm(FlaskForm):
     ])
 
     submit = SubmitField("Зберегти товар")
+
+class DeleteProductForm(FlaskForm):
+    submit = SubmitField("Видалити товар")

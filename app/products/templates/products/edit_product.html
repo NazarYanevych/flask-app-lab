@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% from 'components/_form_macro.html' import render_field %}
+
+{% block content %}
+
+<h1>Редагувати товар</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    {{ render_field(form.name) }}
+    {{ render_field(form.content) }}
+    {{ render_field(form.price) }}
+    {{ render_field(form.category) }}
+    {{ render_field(form.quantity) }}
+
+    {% if product.image %}
+        <p>Поточне зображення:</p>
+        <img src="{{ url_for('products.static', filename=product.image) }}"
+             width="150" alt="{{ product.name }}">
+    {% endif %}
+
+    {{ render_field(form.image) }}
+
+    {{ form.submit(class="btn btn-accent") }}
+</form>
+
+{% endblock %}
