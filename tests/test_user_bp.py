@@ -1,17 +1,16 @@
-
 import unittest
-from app import app
+from app import create_app
 
 
 class FlaskAppTestCase(unittest.TestCase):
 
     def setUp(self):
         """Налаштування клієнта тестування перед кожним тестом."""
-        app.config["TESTING"] = True
-        self.client = app.test_client()
+        self.app = create_app("testing")
+        self.client = self.app.test_client()
 
     def test_greetings_page(self):
-        """Тест маршруту /hi/<name>."""
+        """Тест маршруту /hi/<n>."""
         response = self.client.get("/users/hi/John?age=30")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"JOHN", response.data)

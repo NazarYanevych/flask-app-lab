@@ -16,7 +16,7 @@
 <section id="contact-form">
   <h2>Звязатись зі мною</h2>
 
-  <form method="POST" action="{{ url_for('contacts') }}">
+  <form method="POST" action="{{ url_for('main.contacts') }}">
     {{ form.hidden_tag() }}
 
     {{ render_field(form.name) }}
