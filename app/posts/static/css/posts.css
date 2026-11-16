@@ -1,0 +1,12 @@
+.post-card {
+    border-left: 4px solid var(--accent);
+}
+
+.post-img {
+    height: 160px;
+    object-fit: cover;
+}
+
+.post-content {
+    white-space: pre-line;
+}
