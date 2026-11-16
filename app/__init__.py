@@ -28,10 +28,12 @@ def create_app(config_name=None):
     from .views import main_bp
     from .users import users
     from .products import products_bp
+    from .posts import post_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(users)
     app.register_blueprint(products_bp)
+    app.register_blueprint(post_bp)
 
     @app.errorhandler(404)
     def not_found(e):
