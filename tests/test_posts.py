@@ -111,11 +111,10 @@ class PostTestCase(unittest.TestCase):
             self.assertEqual(post.title, "New title")
             self.assertEqual(post.category, "news")
 
-
     def test_delete_confirm_page(self):
         post_id = self.make_post(title="To delete")
 
-        response = self.client.get(f"/post/{post_id}/delete")
+        response = self.client.get(f"/post/delete/{post_id}")
 
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"To delete", response.data)
@@ -123,7 +122,7 @@ class PostTestCase(unittest.TestCase):
     def test_delete_post(self):
         post_id = self.make_post(title="To delete")
 
-        response = self.client.post(f"/post/{post_id}/delete", follow_redirects=True)
+        response = self.client.post(f"/post/delete/{post_id}", follow_redirects=True)
 
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Post deleted successfully", response.data)

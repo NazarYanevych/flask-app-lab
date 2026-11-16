@@ -63,15 +63,12 @@ def update_post(id):
 
     return render_template("add_post.html", form=form, title="Edit Post")
 
-
-@post_bp.route("/<int:id>/delete", methods=["GET", "POST"])
+@post_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete_post(id):
     post = db.get_or_404(Post, id)
-
-    if request.method == "POST":
+    if request.method == 'POST':
         db.session.delete(post)
         db.session.commit()
-        flash("Post deleted successfully", "danger")
-        return redirect(url_for("posts.all_posts"))
-
-    return render_template("delete_confirm.html", post=post, title="Delete Post")
+        flash('Post deleted successfully', 'success')
+        return redirect(url_for('.all_posts'))
+    return render_template('delete_confirm.html', post=post)
