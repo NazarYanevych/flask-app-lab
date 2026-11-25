@@ -7,7 +7,7 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p class="text-muted">
-    Автор: {{ post.author }} · Категорія: {{ post.category }} ·
+    Автор: {{ post.user.username }} · Категорія: {{ post.category }} ·
     {{ post.posted.strftime("%Y-%m-%d %H:%M") }}
 </p>
 <p class="post-content">{{ post.content }}</p>

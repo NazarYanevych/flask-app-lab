@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app import db
 
@@ -21,7 +21,8 @@ class Post(db.Model):
         default="other"
     )
     is_active: Mapped[bool] = mapped_column(default=True)
-    author: Mapped[str] = mapped_column(sa.String(20), default="Anonymous")
+    user_id: Mapped[int] = mapped_column(sa.ForeignKey("users.id"))
+    user: Mapped["User"] = relationship(back_populates="posts")
 
     def __repr__(self):
         return f"<Post(title={self.title})>"

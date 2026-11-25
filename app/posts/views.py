@@ -1,6 +1,7 @@
-from flask import render_template, redirect, url_for, flash, session, request
+from flask import render_template, redirect, url_for, flash, request
 
 from app import db
+from app.users.models import User
 from . import post_bp
 from .forms import PostForm
 from .models import Post
@@ -16,6 +17,8 @@ def all_posts():
 @post_bp.route("/create", methods=["GET", "POST"])
 def create_post():
     form = PostForm()
+    authors = db.session.scalars(db.select(User).order_by(User.id)).all()
+    form.author_id.choices = [(author.id, author.username) for author in authors]
 
     if form.validate_on_submit():
         post = Post(
@@ -24,7 +27,7 @@ def create_post():
             is_active=form.is_active.data,
             posted=form.publish_date.data,
             category=form.category.data,
-            author=session.get("username", "Anonymous")[:20],
+            user_id=form.author_id.data,
         )
         db.session.add(post)
         db.session.commit()
@@ -47,9 +50,12 @@ def detail_post(id):
 def update_post(id):
     post = db.get_or_404(Post, id)
     form = PostForm(obj=post)
+    authors = db.session.scalars(db.select(User).order_by(User.id)).all()
+    form.author_id.choices = [(author.id, author.username) for author in authors]
 
     if request.method == "GET":
         form.publish_date.data = post.posted
+        form.author_id.data = post.user_id
 
     if form.validate_on_submit():
         post.title = form.title.data
@@ -57,11 +63,16 @@ def update_post(id):
         post.is_active = form.is_active.data
         post.category = form.category.data
         post.posted = form.publish_date.data
+        post.user_id = form.author_id.data
         db.session.commit()
         flash("Post updated successfully", "success")
         return redirect(url_for("posts.detail_post", id=post.id))
 
+    if form.is_submitted():
+        flash("Enter the correct data in the form!", "danger")
+
     return render_template("add_post.html", form=form, title="Edit Post")
+
 
 @post_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete_post(id):

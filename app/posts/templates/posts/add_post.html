@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% from 'components/_form_macro.html' import render_field %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
 {% block content %}
 <h1>{{ title }}</h1>
 
@@ -11,6 +15,7 @@
     {{ render_field(form.is_active) }}
     {{ render_field(form.publish_date) }}
     {{ render_field(form.category) }}
+    {{ render_field(form.author_id) }}
     {{ form.submit(class="btn btn-primary") }}
     <a href="{{ url_for('posts.all_posts') }}" class="btn btn-secondary">Return to Posts</a>
 </form>
