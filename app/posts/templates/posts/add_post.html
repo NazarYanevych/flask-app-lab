@@ -16,6 +16,7 @@
     {{ render_field(form.publish_date) }}
     {{ render_field(form.category) }}
     {{ render_field(form.author_id) }}
+    {{ render_field(form.tags) }}
     {{ form.submit(class="btn btn-primary") }}
     <a href="{{ url_for('posts.all_posts') }}" class="btn btn-secondary">Return to Posts</a>
 </form>

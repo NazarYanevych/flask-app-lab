@@ -10,3 +10,13 @@
 .post-content {
     white-space: pre-line;
 }
+
+.tag-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    margin-right: 0.25rem;
+    font-size: 0.85rem;
+    background-color: var(--accent);
+    color: #fff;
+    border-radius: 0.25rem;
+}
