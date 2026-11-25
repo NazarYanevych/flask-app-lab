@@ -1,5 +1,8 @@
 from flask import request, render_template, redirect, url_for, session, flash, make_response
+from app import db
 from . import users
+from .forms import RegistrationForm
+from .models import User
 
 
 @users.route("/hi/<string:name>")
@@ -17,6 +20,22 @@ def admin():
     print(to_url)
     return redirect(to_url)
 
+@users.route("/register", methods=["GET", "POST"])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password="",
+        )
+        user.hash_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash(f"Акаунт для {form.username.data} створено! Тепер ви можете увійти.", "success")
+        return redirect(url_for("users.login"))
+
+    return render_template("register.html", form=form, title="Реєстрація")
 
 @users.route("/login", methods=["GET", "POST"])
 def login():
