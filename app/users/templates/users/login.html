@@ -1,24 +1,15 @@
-
 {% extends 'base.html' %}
+{% from 'components/_form_macro.html' import render_field %}
 
 {% block content %}
 <h1>Вхід у систему</h1>
 
-<form method="POST" action="{{ url_for('users.login') }}">
-    <div class="mb-3">
-        <label for="username" class="form-label">Логін</label>
-        <input type="text" class="form-control"
-               id="username" name="username" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="password" class="form-label">Пароль</label>
-        <input type="password" class="form-control"
-               id="password" name="password" required>
-    </div>
-
-    <button type="submit" class="btn btn-accent">
-        Увійти
-    </button>
+<form method="POST" action="{{ url_for('users.login') }}" novalidate>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.remember) }}
+    {{ form.submit(class="btn btn-accent", value="Увійти") }}
+    <a href="{{ url_for('users.register') }}" class="btn btn-secondary">Реєстрація</a>
 </form>
 {% endblock %}
